@@ -11,6 +11,6 @@ const firebaseConfig = {
   measurementId: "YOUR_MEASUREMENT_ID" // Optional
 };
 
-// Initialize Firebase (will be done in script.js)
+// Initialize Firebase (will be done in script.js after the SDK is loaded)
 // firebase.initializeApp(firebaseConfig);
 // const db = firebase.firestore();
