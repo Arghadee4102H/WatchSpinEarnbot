@@ -240,7 +240,7 @@ h2 {
      box-shadow: var(--glow-red);
 }
 
-#spin-button:hover {
+#spin-button:hover:not(:disabled) { /* Only hover on enabled */
      background-color: #c0392b; /* Darker red */
      border-color: var(--color-blue);
      text-shadow: var(--glow-blue);
