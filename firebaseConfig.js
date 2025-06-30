@@ -2,12 +2,12 @@
 
 // Replace with your actual Firebase project configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyAd8RlZSAK4shZoziCJOzoiztln3jjgJZ4",
+  authDomain: "watchspinearnbot.firebaseapp.com",
+  projectId: "watchspinearnbot",
+  storageBucket: "watchspinearnbot.firebasestorage.app",
+  messagingSenderId: "1022391154847",
+  appId: "1:1022391154847:web:d6617ddaa5a0e601074aaa",
   measurementId: "YOUR_MEASUREMENT_ID" // Optional
 };
 
