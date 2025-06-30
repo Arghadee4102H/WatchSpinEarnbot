@@ -1,0 +1,530 @@
+/* style.css */
+
+:root {
+    --color-black: #0a0a0a;
+    --color-red: #e74c3c;
+    --color-blue: #3498db;
+    --color-gray: #bdc3c7;
+    --color-dark-gray: #34495e;
+    --color-light-gray: #ecf0f1;
+    --color-green: #2ecc71;
+
+    --glow-red: 0 0 8px var(--color-red), 0 0 12px var(--color-red), 0 0 16px var(--color-red);
+    --glow-blue: 0 0 8px var(--color-blue), 0 0 12px var(--color-blue), 0 0 16px var(--color-blue);
+    --glow-green: 0 0 8px var(--color-green), 0 0 12px var(--color-green), 0 0 16px var(--color-green);
+    --glow-gray: 0 0 5px var(--color-gray);
+
+    --transition-speed: 0.3s ease-in-out;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* Or a futuristic font like 'Orbitron', sans-serif; if available */
+    background-color: var(--color-black);
+    color: var(--color-light-gray);
+    overflow: hidden; /* Hide scrollbars for sections */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to top */
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px; /* Max width for larger screens */
+    height: 100vh; /* Full height */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-dark-gray);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative; /* Needed for loading screen */
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-dark-gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity var(--transition-speed);
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid var(--color-blue);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--color-black);
+    border-bottom: 2px solid var(--color-blue);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.user-info-header {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid var(--color-blue);
+    box-shadow: var(--glow-blue);
+}
+
+.user-avatar.large {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    border: 3px solid var(--color-blue);
+    box-shadow: var(--glow-blue);
+}
+
+
+.points-info {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--color-light-gray);
+    text-shadow: var(--glow-gray);
+}
+
+.points-info span {
+    color: var(--color-red);
+    text-shadow: var(--glow-red);
+}
+
+/* Content Area & Sections */
+.content-area {
+    flex-grow: 1;
+    overflow-y: auto; /* Allow vertical scrolling within the content area */
+    padding: 15px;
+    position: relative; /* Needed for absolute positioning of sections during transition */
+}
+
+.app-section {
+    display: none; /* Hidden by default */
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0; /* Start off-screen for slide-in */
+    padding: 15px; /* Padding inside sections */
+    box-sizing: border-box;
+    transition: transform var(--transition-speed), opacity var(--transition-speed);
+    transform: translateX(100%); /* Start off-screen to the right */
+}
+
+.app-section.active {
+    display: block; /* Make visible */
+    opacity: 1;
+    transform: translateX(0); /* Slide into view */
+    position: static; /* Take up space when active */
+    overflow-y: auto; /* Allow scrolling if section content overflows */
+    height: 100%; /* Fill content area height */
+}
+
+/* Add transition effect for section changes */
+.content-area .app-section:not(.active) {
+     /* Ensure sections are hidden and don't interfere */
+    pointer-events: none;
+}
+
+/* Basic Section Styles */
+h2 {
+    color: var(--color-red);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-shadow: var(--glow-red);
+    border-bottom: 2px solid var(--color-red);
+    padding-bottom: 10px;
+}
+
+/* Profile Styles */
+#profile-section .profile-details {
+    background-color: var(--color-black);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-blue);
+    box-shadow: var(--glow-blue);
+    text-align: center;
+}
+
+#profile-section p {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+#profile-section strong {
+     color: var(--color-blue);
+     text-shadow: var(--glow-blue);
+}
+
+#profile-section span {
+     font-weight: normal;
+     color: var(--color-light-gray);
+}
+
+/* Buttons */
+.action-button, .task-button, .copy-button {
+    display: block;
+    width: fit-content;
+    margin: 15px auto;
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--color-light-gray);
+    background-color: var(--color-dark-gray);
+    border: 2px solid var(--color-blue);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease, box-shadow 0.2s ease;
+    text-shadow: var(--glow-blue);
+    box-shadow: var(--glow-blue);
+}
+
+.action-button:hover, .task-button:hover, .copy-button:hover {
+    background-color: #2c3e50; /* Slightly lighter dark-gray */
+    border-color: var(--color-red);
+    text-shadow: var(--glow-red);
+    box-shadow: var(--glow-red);
+}
+
+.action-button:active, .task-button:active, .copy-button:active {
+    transform: scale(0.95); /* Press effect */
+}
+
+.action-button:disabled, .task-button:disabled, .copy-button:disabled {
+    background-color: #5a6a7a; /* Darker gray */
+    border-color: #7f8c8d; /* Gray */
+    color: #bdc3c7;
+    cursor: not-allowed;
+    box-shadow: none;
+    text-shadow: none;
+    transform: scale(1);
+}
+
+/* Spin Button Specifics */
+#spin-button {
+     background-color: var(--color-red);
+     border-color: var(--color-red);
+     text-shadow: var(--glow-red);
+     box-shadow: var(--glow-red);
+}
+
+#spin-button:hover {
+     background-color: #c0392b; /* Darker red */
+     border-color: var(--color-blue);
+     text-shadow: var(--glow-blue);
+     box-shadow: var(--glow-blue);
+}
+
+
+/* Glow pulse animation for buttons */
+@keyframes pulse-glow-blue {
+    0%, 100% { box-shadow: var(--glow-blue); }
+    50% { box-shadow: var(--glow-blue), 0 0 20px var(--color-blue); }
+}
+
+@keyframes pulse-glow-red {
+    0%, 100% { box-shadow: var(--glow-red); }
+    50% { box-shadow: var(--glow-red), 0 0 20px var(--color-red); }
+}
+
+.button-glow-pulse-blue {
+    animation: pulse-glow-blue 1.5s infinite;
+}
+
+.button-glow-pulse-red {
+    animation: pulse-glow-red 1.5s infinite;
+}
+
+
+/* Task List */
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.task-list li {
+    background-color: var(--color-black);
+    border: 1px solid var(--color-dark-gray);
+    border-left: 4px solid var(--color-blue);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.task-list li span {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.task-button {
+     margin: 0;
+     padding: 8px 15px;
+     font-size: 0.9em;
+}
+
+.task-status {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--color-red);
+    margin-left: 10px;
+}
+
+.task-list li.completed {
+    border-color: var(--color-green);
+}
+.task-list li.completed .task-status {
+    color: var(--color-green);
+}
+
+
+/* Withdrawal Options */
+.withdrawal-options {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--color-black);
+    border: 1px solid var(--color-blue);
+    border-radius: 8px;
+     box-shadow: var(--glow-blue);
+}
+
+.withdrawal-options h3 {
+    color: var(--color-red);
+    margin-top: 0;
+    border-bottom: 1px dashed var(--color-dark-gray);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+     text-shadow: var(--glow-red);
+}
+
+.withdrawal-options ul {
+    list-style: none;
+    padding: 0;
+}
+
+.withdrawal-options li {
+    background-color: var(--color-dark-gray);
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 3px solid var(--color-red);
+}
+
+/* Withdrawal Form */
+.withdrawal-form {
+    padding: 15px;
+    background-color: var(--color-black);
+    border: 1px solid var(--color-red);
+    border-radius: 8px;
+    box-shadow: var(--glow-red);
+}
+
+.withdrawal-form h3 {
+    color: var(--color-blue);
+    margin-top: 0;
+    border-bottom: 1px dashed var(--color-dark-gray);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+     text-shadow: var(--glow-blue);
+}
+
+.withdrawal-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--color-blue);
+}
+
+.withdrawal-form input[type="number"],
+.withdrawal-form input[type="text"],
+.withdrawal-form select {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-dark-gray);
+    border-radius: 4px;
+    background-color: var(--color-black);
+    color: var(--color-light-gray);
+    font-size: 1em;
+}
+
+.withdrawal-form input[type="number"]:focus,
+.withdrawal-form input[type="text"]:focus,
+.withdrawal-form select:focus {
+    outline: none;
+    border-color: var(--color-red);
+    box-shadow: var(--glow-red);
+}
+
+/* Referral Section */
+#referral-section input[type="text"] {
+     display: block;
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid var(--color-dark-gray);
+    border-radius: 4px;
+    background-color: var(--color-black);
+    color: var(--color-light-gray);
+    font-size: 1em;
+}
+#referral-section input[type="text"]:focus {
+     outline: none;
+    border-color: var(--color-blue);
+    box-shadow: var(--glow-blue);
+}
+
+
+/* Messages */
+.message {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--color-gray); /* Default message color */
+}
+
+.message.error {
+    color: var(--color-red);
+    text-shadow: var(--glow-red);
+}
+
+.message.success {
+    color: var(--color-green);
+    text-shadow: var(--glow-green);
+}
+
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    display: flex;
+    width: 100%;
+    background-color: var(--color-black);
+    border-top: 2px solid var(--color-blue);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.nav-item {
+    flex-grow: 1;
+    padding: 10px 5px;
+    font-size: 0.8em;
+    background: none;
+    border: none;
+    color: var(--color-gray);
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+
+.nav-item.active {
+    color: var(--color-blue);
+    text-shadow: var(--glow-blue);
+}
+
+.nav-item:hover:not(.active) {
+    color: var(--color-light-gray);
+    text-shadow: var(--glow-gray);
+}
+
+.nav-item svg, .nav-item img { /* If using icons */
+    margin-bottom: 4px;
+}
+
+/* Ensure the content area leaves space for the header and nav */
+.content-area {
+    padding-top: 15px; /* Space below header */
+    padding-bottom: 80px; /* Space above nav */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .app-container {
+        max-width: 100%;
+        height: 100vh; /* On small screens, take full width */
+    }
+
+    .header {
+        padding: 8px 10px;
+    }
+
+    .user-avatar {
+        width: 25px;
+        height: 25px;
+    }
+
+    .user-avatar.large {
+        width: 60px;
+        height: 60px;
+    }
+
+    .points-info {
+        font-size: 1em;
+    }
+
+    .content-area {
+         padding: 10px;
+         padding-bottom: 70px; /* Adjust space above nav */
+    }
+
+     .app-section {
+         padding: 10px; /* Adjust section padding */
+     }
+
+    h2 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+
+    .action-button, .task-button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .nav-item {
+        font-size: 0.7em;
+        padding: 8px 3px; /* More padding on smaller screens */
+    }
+}

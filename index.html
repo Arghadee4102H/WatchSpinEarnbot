@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Spin Earn</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <!-- Your Firebase Config -->
+    <script src="firebaseConfig.js"></script>
+    <!-- Your App Script -->
+    <script src="script.js" defer></script>
+    <!-- Monetag SDK -->
+    <script src='//libtl.com/sdk.js' data-zone='9342950' data-sdk='show_9342950'></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="loading-screen">
+            <div class="loading-spinner"></div>
+            <p>Loading Watch Spin Earn...</p>
+        </div>
+
+        <!-- Header Bar -->
+        <div class="header">
+            <div class="user-info-header">
+                <img id="header-user-photo" class="user-avatar" src="placeholder.png" alt="User Photo">
+                <span id="header-username">Loading...</span>
+            </div>
+            <div class="points-info">
+                <span id="header-points">0</span> Points
+            </div>
+        </div>
+
+        <!-- Main Content Area (Sections) -->
+        <div class="content-area">
+            <!-- Profile Section -->
+            <section id="profile-section" class="app-section active">
+                <h2>👤 Profile</h2>
+                <div class="profile-details">
+                    <img id="profile-user-photo" class="user-avatar large" src="placeholder.png" alt="User Photo">
+                    <p><strong>Username:</strong> <span id="profile-username">Loading...</span></p>
+                    <p><strong>Full Name:</strong> <span id="profile-full-name">Loading...</span></p>
+                    <p><strong>Telegram ID:</strong> <span id="profile-telegram-id">Loading...</span></p>
+                    <p><strong>Your Referral Code:</strong> <span id="profile-referral-code">Loading...</span> <button class="copy-button" data-target="profile-referral-code">Copy</button></p>
+                    <p><strong>Total Referrals:</strong> <span id="profile-referrals-count">0</span></p>
+                    <p><strong>Current Points:</strong> <span id="profile-points">0</span></p>
+                    <!-- Energy (as requested in DB structure, though not used in features) -->
+                    <!-- <p><strong>Energy:</strong> <span id="profile-energy">--</span>/<span id="profile-max-energy">--</span></p> -->
+                </div>
+            </section>
+
+            <!-- Spin Section -->
+            <section id="spin-section" class="app-section">
+                <h2>🎰 Spin to Earn</h2>
+                <div class="spin-area">
+                     <p>Daily Free Spins Left: <span id="spins-left">0</span></p>
+                     <p>Ads for Spins Left: <span id="ad-spins-left">0</span></p>
+                    <button id="spin-button" class="action-button">Spin Now!</button>
+                     <p id="spin-message" class="message"></p>
+                </div>
+            </section>
+
+            <!-- Task Section -->
+            <section id="task-section" class="app-section">
+                <h2>📋 Daily Tasks</h2>
+                 <p id="task-status-message" class="message"></p>
+                <ul class="task-list">
+                    <li id="task-1">
+                        <span>Join Telegram Channel 1</span>
+                        <button class="task-button" data-task-id="1" data-url="https://t.me/AGuttuGhosh">Go</button>
+                        <span class="task-status">Pending</span>
+                    </li>
+                    <li id="task-2">
+                        <span>Join Telegram Group</span>
+                        <button class="task-button" data-task-id="2" data-url="https://t.me/AGuttuGhoshChat">Go</button>
+                        <span class="task-status">Pending</span>
+                    </li>
+                     <li id="task-3">
+                        <span>Join Telegram Channel 2</span>
+                        <button class="task-button" data-task-id="3" data-url="https://t.me/ShopEarnHub4102h">Go</button>
+                        <span class="task-status">Pending</span>
+                    </li>
+                     <li id="task-4">
+                        <span>Join Telegram Channel 3</span>
+                        <button class="task-button" data-task-id="4" data-url="https://t.me/earningsceret">Go</button>
+                        <span class="task-status">Pending</span>
+                    </li>
+                </ul>
+                 <button id="claim-tasks-button" class="action-button" disabled>Claim Daily Task Points (120)</button>
+            </section>
+
+            <!-- Watch Ads Section -->
+            <section id="watch-ads-section" class="app-section">
+                <h2>📺 Watch Ads</h2>
+                 <p>Daily Ads Left: <span id="ads-left">0</span>/38</p>
+                 <p id="ad-cooldown-message" class="message"></p>
+                <button id="watch-ad-button" class="action-button">Watch Ad & Earn 18 Points</button>
+                 <p id="ad-message" class="message"></p>
+            </section>
+
+             <!-- Referral Section -->
+            <section id="referral-section" class="app-section">
+                <h2>👥 Referral</h2>
+                <p>Your unique referral code is: <strong><span id="your-referral-code">Loading...</span></strong></p>
+                 <p id="referral-status-message" class="message"></p>
+
+                <div id="enter-referral-area">
+                    <p>Enter a referral code to get bonus points!</p>
+                    <input type="text" id="referral-input" placeholder="Enter code here">
+                    <button id="submit-referral-button" class="action-button">Submit Code</button>
+                </div>
+                 <p id="referral-message" class="message"></p>
+            </section>
+
+            <!-- Withdraw Section -->
+            <section id="withdraw-section" class="app-section">
+                <h2>📤 Withdraw</h2>
+                <p>Your Current Points: <span id="withdraw-points">0</span></p>
+
+                <div class="withdrawal-options">
+                    <h3>Available Withdrawal Options:</h3>
+                    <ul>
+                        <li data-points="1750" data-amount="0.10" data-once="true">1,750 Points = $0.10 (One-time only)</li>
+                        <li data-points="25000" data-amount="1.20">25,000 Points = $1.20</li>
+                        <li data-points="50000" data-amount="2.80">50,000 Points = $2.80</li>
+                        <li data-points="85000" data-amount="3.50">85,000 Points = $3.50</li>
+                    </ul>
+                </div>
+
+                 <p id="withdrawal-status-message" class="message"></p>
+
+                <div class="withdrawal-form">
+                    <h3>Request Withdrawal</h3>
+                    <label for="withdraw-amount">Points to Withdraw:</label>
+                    <input type="number" id="withdraw-amount" placeholder="Enter points (e.g., 25000)" min="1750">
+
+                    <label for="withdraw-method">Withdrawal Method:</label>
+                    <select id="withdraw-method">
+                        <option value="">-- Select Method --</option>
+                        <option value="TON Wallet">TON Wallet</option>
+                        <option value="Binance Pay ID">Binance Pay ID</option>
+                    </select>
+
+                    <label for="withdraw-address">Wallet Address / Pay ID:</label>
+                    <input type="text" id="withdraw-address" placeholder="Enter your address or ID">
+
+                    <button id="submit-withdrawal-button" class="action-button" disabled>Submit Withdrawal Request</button>
+                </div>
+                 <p id="withdraw-message" class="message"></p>
+            </section>
+
+        </div>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-section="profile-section">
+                👤 Profile
+            </button>
+            <button class="nav-item" data-section="spin-section">
+                🎰 Spin
+            </button>
+            <button class="nav-item" data-section="task-section">
+                📋 Task
+            </button>
+            <button class="nav-item" data-section="watch-ads-section">
+                📺 Watch Ads
+            </button>
+             <button class="nav-item" data-section="referral-section">
+                👥 Referral
+            </button>
+            <button class="nav-item" data-section="withdraw-section">
+                📤 Withdraw
+            </button>
+        </nav>
+    </div>
+
+</body>
+</html>
